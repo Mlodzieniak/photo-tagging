@@ -1,12 +1,13 @@
 import React from "react";
 import "./App.css";
-import firebase from "firebase/compat/app";
-import "firebase/firestore";
+import { initializeApp } from "firebase/app";
+
 // import { useCollectionData } from "react-firebase-hooks/firestore";
 import MainImage from "./components/MainImage";
 import Timer from "./components/Timer";
+import ImageGallery from "./components/ImageGallery";
 
-firebase.initializeApp({
+const firebaseApp = initializeApp({
   apiKey: "AIzaSyABksPd_kbV_p3647KCEEkj1yjgr4Hgkmc",
   authDomain: "photo-tagging-app-be03b.firebaseapp.com",
   projectId: "photo-tagging-app-be03b",
@@ -20,6 +21,7 @@ function App() {
   return (
     <div className="App">
       <h1>Hello World!</h1>
+      <ImageGallery firebaseApp={firebaseApp} />
       <Timer />
       <MainImage />
     </div>

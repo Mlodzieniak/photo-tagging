@@ -7,7 +7,7 @@ function WelcomePage() {
     <div className="welcome-page">
       <h1 className="title">Welcome to Photo Tagging Game!</h1>
       <p className="description">
-        Can you identify the objects in our photos? Test your skills and compete
+        Can you find the characters in our photos? Test your skills and compete
         against your friends.
       </p>
       <p className="description">

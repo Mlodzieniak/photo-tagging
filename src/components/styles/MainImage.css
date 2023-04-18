@@ -1,0 +1,23 @@
+.main-img-wrapper {
+    width: 900px;
+    height: 600px;
+    overflow: hidden;
+    position: relative;
+    cursor: grab;
+}
+
+.main-img-wrapper img {
+    width: 1920px;
+    height: 1080px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.main-img-wrapper:hover {
+    cursor: grab;
+}
+
+.main-img-wrapper:active {
+    cursor: grabbing;
+}

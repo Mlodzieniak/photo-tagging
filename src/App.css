@@ -13,6 +13,55 @@
     height: 100vh;
 }
 
+.welcome-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f1f1f1;
+    gap: 0.5rem;
+}
+
+.title {
+    font-size: 48px;
+    font-weight: bold;
+    margin-bottom: 32px;
+    color: #222222;
+    text-align: center;
+}
+
+.description {
+    font-size: 24px;
+    line-height: 1.5;
+    margin-bottom: 64px;
+    color: #444444;
+    text-align: center;
+}
+
+.start-game-button {
+    padding: 16px 32px;
+    font-size: 24px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    background-color: #ff6b6b;
+    color: #ffffff;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+    text-align: center;
+}
+
+.start-game-button:hover {
+    background-color: #e74c3c;
+}
+
+
+.start-game-button:hover {
+    background-color: #e74c3c;
+}
+
+
 .main-img-wrapper {
     width: 100%;
 
@@ -22,4 +71,28 @@
     width: 1920px;
     height: 1080px;
     /* width: 100px; */
+}
+
+.gallery {
+    display: flex;
+    /* flex-direction: column; */
+    gap: 1rem;
+}
+
+.characterImage {
+    width: 95%;
+    height: 95%;
+    object-fit: contain;
+    border-radius: 50%;
+}
+
+.characterContainer {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background-image: linear-gradient(180deg, #00aaff, #0055ff);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
 }

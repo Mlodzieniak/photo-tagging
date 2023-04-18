@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from "react";
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
+import CharacterImage from "./CharaterImage";
 
 function ImageGallery({ firebaseApp }) {
   const [imageUrls, setImageUrls] = useState([]);
@@ -29,8 +30,8 @@ function ImageGallery({ firebaseApp }) {
 
   return (
     <div className="gallery">
-      {imageUrls.map((url, index) => (
-        <img key={url} src={url} alt={index} />
+      {imageUrls.map((charUrl) => (
+        <CharacterImage url={charUrl} key={charUrl} />
       ))}
     </div>
   );

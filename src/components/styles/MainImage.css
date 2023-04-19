@@ -13,11 +13,3 @@
     top: 0;
     left: 0;
 }
-
-.main-img-wrapper:hover {
-    cursor: grab;
-}
-
-.main-img-wrapper:active {
-    cursor: grabbing;
-}

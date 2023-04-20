@@ -7,9 +7,12 @@ import ImageGallery from "./ImageGallery";
 function Game({ firebaseApp }) {
   return (
     <div className="App">
-      <ImageGallery firebaseApp={firebaseApp} />
       <Timer />
-      <MainImage />
+
+      <div className="gallery-mainimage-wrapper">
+        <ImageGallery firebaseApp={firebaseApp} />
+        <MainImage />
+      </div>
     </div>
   );
 }

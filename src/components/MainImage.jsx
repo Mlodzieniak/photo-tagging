@@ -44,18 +44,6 @@ function MainImage() {
     const y = event.clientY - rect.top;
     setPopupOffset({ x, y });
   };
-
-  // useEffect(() => {
-  //   const wrapper = wrapperRef.current;
-  //   const img = wrapper.querySelector("img.main");
-  //   const imgRect = img.getBoundingClientRect();
-  //   const popup = wrapper.querySelector(".popup-container");
-  //   const popupRect = popup.getBoundingClientRect();
-  //   const popupX = imgRect.left + mousePosition.x - popupRect.width / 2;
-  //   const popupY = imgRect.top + mousePosition.y - popupRect.height / 2;
-  //   setPopupPosition({ x: popupX, y: popupY });
-  // }, [mousePosition]);
-
   // Popup receives position of mouse as props
   return (
     <div className="main-img-wrapper" ref={wrapperRef}>

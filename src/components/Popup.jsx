@@ -23,14 +23,16 @@ function Popup({ imgPosition, offset }) {
 
   return (
     <div className="popup-container" ref={wrapper}>
-      <div className="popup" style={{ top: position.y, left: position.x }}>
-        <button type="button">Button 1</button>
-        <button type="button">Button 2</button>
-        <button type="button">Button 3</button>
-        <button type="button" className="close-button" onClick={handleClose}>
-          X
-        </button>
-      </div>
+      {position.x !== 0 && position.y !== 0 ? (
+        <div className="popup" style={{ top: position.y, left: position.x }}>
+          <button type="button">Button 1</button>
+          <button type="button">Button 2</button>
+          <button type="button">Button 3</button>
+          <button type="button" className="close-button" onClick={handleClose}>
+            X
+          </button>
+        </div>
+      ) : null}
     </div>
   );
 }

@@ -10,6 +10,7 @@ function MainImage() {
   const imgRef = useRef(null);
   const [popupPosition, setPopupPosition] = useState({ x: 0, y: 0 });
   const [popupOffset, setPopupOffset] = useState({ x: 0, y: 0 });
+  const [popupActive, setPopupActive] = useState(false);
 
   const drag = (e) => {
     const wrapper = wrapperRef.current;
@@ -32,7 +33,9 @@ function MainImage() {
 
   useEffect(() => {
     const wrapper = wrapperRef.current;
-    wrapper.addEventListener("mousemove", drag);
+    if (!popupActive) {
+      wrapper.addEventListener("mousemove", drag);
+    }
     return () => {
       wrapper.removeEventListener("mousemove", drag);
     };
@@ -43,6 +46,10 @@ function MainImage() {
     const x = event.clientX - rect.left;
     const y = event.clientY - rect.top;
     setPopupOffset({ x, y });
+    setPopupActive(true);
+  };
+  const disablePopup = () => {
+    setPopupActive(false);
   };
   // Popup receives position of mouse as props
   return (
@@ -54,7 +61,13 @@ function MainImage() {
         onClick={handleClick}
         ref={imgRef}
       />
-      <Popup imgPosition={popupPosition} offset={popupOffset} />
+      <Popup
+        imgPosition={popupPosition}
+        offset={popupOffset}
+        disable={disablePopup}
+        // isActive={isPopupActive}
+        // setIsPopupActive={setIsPopupActive}
+      />
     </div>
   );
 }

@@ -4,8 +4,9 @@ import propTypes from "prop-types";
 import "./styles/Popup.css";
 
 // window with 3 buttons that pops up in position that is received from props
-function Popup({ imgPosition, offset }) {
+function Popup({ imgPosition, offset, disable }) {
   const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [isActive, setIsActive] = useState(false);
   // wait for the component to mount
   const wrapper = useRef(null);
 
@@ -15,15 +16,18 @@ function Popup({ imgPosition, offset }) {
 
   useEffect(() => {
     setPosition({ x: offset.x, y: offset.y });
+    setIsActive(true);
   }, [offset]);
 
   const handleClose = () => {
     setPosition({ x: 0, y: 0 });
+    setIsActive(false);
+    disable();
   };
 
   return (
     <div className="popup-container" ref={wrapper}>
-      {position.x !== 0 && position.y !== 0 ? (
+      {isActive && position.x !== 0 && position.y !== 0 ? (
         <div className="popup" style={{ top: position.y, left: position.x }}>
           <button type="button">Tom</button>
           <button type="button">Sonic</button>
@@ -45,6 +49,7 @@ Popup.propTypes = {
     x: propTypes.number,
     y: propTypes.number,
   }).isRequired,
+  disable: propTypes.func.isRequired,
 };
 
 export default Popup;

@@ -7,7 +7,9 @@ import "./styles/MainImage.css";
 
 function MainImage() {
   const wrapperRef = useRef(null);
+  const imgRef = useRef(null);
   const [popupPosition, setPopupPosition] = useState({ x: 0, y: 0 });
+  const [popupOffset, setPopupOffset] = useState({ x: 0, y: 0 });
 
   const drag = (e) => {
     const wrapper = wrapperRef.current;
@@ -36,7 +38,13 @@ function MainImage() {
     };
   });
 
-  const handleClick = () => {};
+  const handleClick = (event) => {
+    const rect = imgRef.current.getBoundingClientRect();
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
+    setPopupOffset({ x, y });
+  };
+
   // useEffect(() => {
   //   const wrapper = wrapperRef.current;
   //   const img = wrapper.querySelector("img.main");
@@ -56,8 +64,9 @@ function MainImage() {
         alt="All characters."
         className="main"
         onClick={handleClick}
+        ref={imgRef}
       />
-      <Popup newPosition={popupPosition} />
+      <Popup imgPosition={popupPosition} offset={popupOffset} />
     </div>
   );
 }

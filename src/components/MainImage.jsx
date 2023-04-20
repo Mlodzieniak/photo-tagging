@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useRef, useEffect, useState } from "react";
@@ -5,7 +6,7 @@ import Popup from "./Popup";
 import waldo from "../images/waldo.jpg";
 import "./styles/MainImage.css";
 
-function MainImage() {
+function MainImage({ firebaseApp }) {
   const wrapperRef = useRef(null);
   const imgRef = useRef(null);
   const [popupPosition, setPopupPosition] = useState({ x: 0, y: 0 });
@@ -67,6 +68,7 @@ function MainImage() {
         disable={disablePopup}
         // isActive={isPopupActive}
         // setIsPopupActive={setIsPopupActive}
+        firebaseApp={firebaseApp}
       />
     </div>
   );

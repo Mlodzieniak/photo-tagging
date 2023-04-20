@@ -11,7 +11,7 @@ function Game({ firebaseApp }) {
 
       <div className="gallery-mainimage-wrapper">
         <ImageGallery firebaseApp={firebaseApp} />
-        <MainImage />
+        <MainImage firebaseApp={firebaseApp} />
       </div>
     </div>
   );

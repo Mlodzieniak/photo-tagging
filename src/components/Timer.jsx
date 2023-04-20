@@ -23,13 +23,16 @@ function Timer() {
 
     return () => clearInterval(interval);
   }, [isActive, seconds]);
+  useEffect(() => {
+    setIsActive(true);
+  }, []);
 
   return (
     <div>
       <h1>{`${minutes.toString().padStart(2, "0")}:${seconds
         .toString()
         .padStart(2, "0")}`}</h1>
-      <button type="button" onClick={() => setIsActive(!isActive)}>
+      <button type="button" onClick={() => setIsActive(!isActive)} disabled>
         {isActive ? "Stop" : "Start"}
       </button>
     </div>

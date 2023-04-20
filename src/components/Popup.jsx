@@ -25,10 +25,10 @@ function Popup({ imgPosition, offset }) {
     <div className="popup-container" ref={wrapper}>
       {position.x !== 0 && position.y !== 0 ? (
         <div className="popup" style={{ top: position.y, left: position.x }}>
-          <button type="button">Button 1</button>
-          <button type="button">Button 2</button>
-          <button type="button">Button 3</button>
-          <button type="button" className="close-button" onClick={handleClose}>
+          <button type="button">Tom</button>
+          <button type="button">Sonic</button>
+          <button type="button">Max</button>
+          <button type="button" id="close-button" onClick={handleClose}>
             X
           </button>
         </div>

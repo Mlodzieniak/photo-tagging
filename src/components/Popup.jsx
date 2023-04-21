@@ -38,15 +38,10 @@ function Popup({ imgPosition, offset, disable, firebaseApp }) {
   //   }
   // }
   // prompts db for cords of selected character
-  async function acquireCords(charName) {
-    // const charDocRef = doc(collection(db,'characters'))
-    const charDoc = await getDoc(doc(collection(db, "characters")), charName);
-    // querySnapshot.forEach((doc) => {
-    //   console.log(`${doc.id} => ${doc.data()}`);
-    //   console.log(charName);
-    // });
+  async function getCords(charName) {
+    const charDoc = await getDoc(doc(collection(db, "characters"), charName));
     if (charDoc.exists()) {
-      console.log(charDoc);
+      console.log(charDoc.data().cords);
     }
   }
 
@@ -58,7 +53,7 @@ function Popup({ imgPosition, offset, disable, firebaseApp }) {
             value="Jerry_Mouse.png"
             type="button"
             onClick={() => {
-              acquireCords("Jerry_Mouse.png");
+              getCords("Jerry_Mouse.png");
             }}
           >
             Jerry
@@ -67,7 +62,7 @@ function Popup({ imgPosition, offset, disable, firebaseApp }) {
             value="sonic-png-11.png"
             type="button"
             onClick={() => {
-              acquireCords("sonic-png-11.png");
+              getCords("sonic-png-11.png");
             }}
           >
             Sonic
@@ -76,7 +71,7 @@ function Popup({ imgPosition, offset, disable, firebaseApp }) {
             value="Gay_rabbit_max.webp"
             type="button"
             onClick={() => {
-              acquireCords("Gay_rabbit_max.webp");
+              getCords("Gay_rabbit_max.webp");
             }}
           >
             Max

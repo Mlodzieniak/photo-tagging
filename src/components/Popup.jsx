@@ -3,6 +3,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import propTypes from "prop-types";
 import { getFirestore, collection, getDoc, doc } from "firebase/firestore";
+import isInsideQuadrangle from "../isInsideQuadrangle";
 import "./styles/Popup.css";
 
 // window with 3 buttons that pops up in position that is received from props
@@ -18,7 +19,6 @@ function Popup({ imgPosition, offset, disable, firebaseApp }) {
   });
 
   useEffect(() => {
-    // console.log(offset);
     setPosition({ x: offset.x, y: offset.y });
     setIsActive(true);
   }, [offset]);
@@ -41,7 +41,8 @@ function Popup({ imgPosition, offset, disable, firebaseApp }) {
   async function getCords(charName) {
     const charDoc = await getDoc(doc(collection(db, "characters"), charName));
     if (charDoc.exists()) {
-      console.log(charDoc.data().cords);
+      const isInside = isInsideQuadrangle(offset, charDoc.data().cords);
+      console.log(isInside);
     }
   }
 

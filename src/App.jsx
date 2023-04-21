@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import { initializeApp } from "firebase/app";
+import {
+  getFirestore,
+  collection,
+  updateDoc,
+  doc,
+  arrayUnion,
+} from "firebase/firestore";
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
 
 // import { useCollectionData } from "react-firebase-hooks/firestore";
@@ -35,9 +42,18 @@ function App() {
   const setPlayerTime = (playerTime) => {
     setTime(playerTime);
   };
+  const db = getFirestore(firebaseApp);
   useEffect(() => {
-    console.log(player);
-    console.log(time);
+    // console.log(player);
+    // console.log(time);
+    async function updateLeaderboard() {
+      const leaderboard = await doc(
+        collection(db, "leaderboard"),
+        "leaderboard"
+      );
+      updateDoc(leaderboard, { ranks: arrayUnion({ [player]: time }) });
+    }
+    if (player && time) updateLeaderboard();
   }, [time]);
   return (
     <Router basename="/">

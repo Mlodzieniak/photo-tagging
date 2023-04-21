@@ -12,7 +12,6 @@ function WelcomePage({ setPlayerName }) {
   };
   const startGame = () => {
     setPlayerName(name);
-    console.log(name);
   };
 
   const isNameValid = name.length >= 3;
@@ -44,7 +43,7 @@ function WelcomePage({ setPlayerName }) {
           className="start-game-button"
           type="button"
           disabled={!isNameValid}
-          onClick={startGame}
+          onClick={startGame()}
         >
           Start Game
         </button>

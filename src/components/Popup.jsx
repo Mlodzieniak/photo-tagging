@@ -7,7 +7,7 @@ import isInsideQuadrangle from "../isInsideQuadrangle";
 import "./styles/Popup.css";
 
 // window with 3 buttons that pops up in position that is received from props
-function Popup({ imgPosition, offset, disable, firebaseApp }) {
+function Popup({ imgPosition, offset, disable, firebaseApp, addCharacter }) {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isActive, setIsActive] = useState(false);
   const db = getFirestore(firebaseApp);
@@ -38,11 +38,13 @@ function Popup({ imgPosition, offset, disable, firebaseApp }) {
   //   }
   // }
   // prompts db for cords of selected character
-  async function getCords(charName) {
+  async function checkCords(charName) {
     const charDoc = await getDoc(doc(collection(db, "characters"), charName));
     if (charDoc.exists()) {
       const isInside = isInsideQuadrangle(offset, charDoc.data().cords);
-      console.log(isInside);
+      if (isInside) {
+        addCharacter(charName);
+      }
     }
     handleClose();
   }
@@ -52,28 +54,25 @@ function Popup({ imgPosition, offset, disable, firebaseApp }) {
       {isActive && position.x !== 0 && position.y !== 0 ? (
         <div className="popup" style={{ top: position.y, left: position.x }}>
           <button
-            value="Jerry_Mouse.png"
             type="button"
             onClick={() => {
-              getCords("Jerry_Mouse.png");
+              checkCords("Jerry_Mouse.png");
             }}
           >
             Jerry
           </button>
           <button
-            value="sonic-png-11.png"
             type="button"
             onClick={() => {
-              getCords("sonic-png-11.png");
+              checkCords("sonic-png-11.png");
             }}
           >
             Sonic
           </button>
           <button
-            value="Gay_rabbit_max.webp"
             type="button"
             onClick={() => {
-              getCords("Gay_rabbit_max.webp");
+              checkCords("Gay_rabbit_max.webp");
             }}
           >
             Max

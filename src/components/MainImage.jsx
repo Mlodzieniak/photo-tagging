@@ -6,7 +6,7 @@ import Popup from "./Popup";
 import waldo from "../images/waldo.jpg";
 import "./styles/MainImage.css";
 
-function MainImage({ firebaseApp }) {
+function MainImage({ firebaseApp, addCharacter }) {
   const wrapperRef = useRef(null);
   const imgRef = useRef(null);
   const [popupPosition, setPopupPosition] = useState({ x: 0, y: 0 });
@@ -66,9 +66,8 @@ function MainImage({ firebaseApp }) {
         imgPosition={popupPosition}
         offset={popupOffset}
         disable={disablePopup}
-        // isActive={isPopupActive}
-        // setIsPopupActive={setIsPopupActive}
         firebaseApp={firebaseApp}
+        addCharacter={addCharacter}
       />
     </div>
   );

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import { initializeApp } from "firebase/app";
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
@@ -20,16 +20,38 @@ const firebaseApp = initializeApp({
   appId: "1:396255562252:web:6f5909cfe719802d263c29",
   measurementId: "G-R21BFDEG1T",
 });
+
 const players = [
   { id: "CHUHCUCJ", name: "DOMINIK", time: { minutes: 1, seconds: 4 } },
   { id: "duffd", name: "Milena", time: { minutes: 2, seconds: 40 } },
 ];
+
 function App() {
+  const [player, setPlayer] = useState("");
+  const [time, setTime] = useState(null);
+  const setPlayerName = (name) => {
+    setPlayer(name);
+  };
+  const setPlayerTime = (playerTime) => {
+    setTime(playerTime);
+  };
+  useEffect(() => {
+    console.log(player);
+    console.log(time);
+  }, [time]);
   return (
     <Router basename="/">
       <Routes>
-        <Route path="/" element={<WelcomePage />} />
-        <Route path="/play" element={<Game firebaseApp={firebaseApp} />} />
+        <Route
+          path="/"
+          element={<WelcomePage setPlayerName={setPlayerName} />}
+        />
+        <Route
+          path="/play"
+          element={
+            <Game firebaseApp={firebaseApp} setPlayerTime={setPlayerTime} />
+          }
+        />
         <Route
           path="/leaderboard"
           element={<Leaderboard players={players} correctPlayerIndex={1} />}

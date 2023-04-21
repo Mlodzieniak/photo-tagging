@@ -1,6 +1,8 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import React, { useState, useEffect } from "react";
+import propTypes from "prop-types";
 
-function Timer() {
+function Timer({ stopTimer, setPlayerTime }) {
   const [seconds, setSeconds] = useState(0);
   const [minutes, setMinutes] = useState(0);
   const [isActive, setIsActive] = useState(false);
@@ -26,6 +28,12 @@ function Timer() {
   useEffect(() => {
     setIsActive(true);
   }, []);
+  useEffect(() => {
+    if (stopTimer) {
+      setIsActive(false);
+      setPlayerTime({ minutes, seconds });
+    }
+  }, [stopTimer]);
 
   return (
     <div>
@@ -38,5 +46,9 @@ function Timer() {
     </div>
   );
 }
+Timer.propTypes = {
+  stopTimer: propTypes.bool.isRequired,
+  setPlayerTime: propTypes.func.isRequired,
+};
 
 export default Timer;

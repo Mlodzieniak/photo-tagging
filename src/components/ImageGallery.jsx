@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import CharacterImage from "./CharaterImage";
 
-function ImageGallery({ firebaseApp }) {
+function ImageGallery({ firebaseApp, direction }) {
   const [imageUrls, setImageUrls] = useState([]);
   const storage = getStorage(firebaseApp);
   const charList = [
@@ -29,7 +29,7 @@ function ImageGallery({ firebaseApp }) {
   }, []);
 
   return (
-    <div className="gallery">
+    <div className="gallery" style={{ flexDirection: direction }}>
       {imageUrls.map((charUrl) => (
         <CharacterImage url={charUrl} key={charUrl} />
       ))}

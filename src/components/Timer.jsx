@@ -31,7 +31,8 @@ function Timer({ stopTimer, setPlayerTime }) {
   useEffect(() => {
     if (stopTimer) {
       setIsActive(false);
-      setPlayerTime({ minutes, seconds });
+      const totalTime = minutes * 60 + seconds;
+      setPlayerTime(totalTime);
     }
   }, [stopTimer]);
 

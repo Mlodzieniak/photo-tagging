@@ -1,19 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import { initializeApp } from "firebase/app";
-import {
-  getFirestore,
-  collection,
-  updateDoc,
-  doc,
-  arrayUnion,
-} from "firebase/firestore";
+import { getFirestore, collection, updateDoc, doc } from "firebase/firestore";
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
-
-// import { useCollectionData } from "react-firebase-hooks/firestore";
-// import MainImage from "./components/MainImage";
-// import Timer from "./components/Timer";
-// import ImageGallery from "./components/ImageGallery";
 import Game from "./components/Game";
 import WelcomePage from "./components/WelcomePage";
 import Leaderboard from "./components/Leaderboard";
@@ -44,14 +33,12 @@ function App() {
   };
   const db = getFirestore(firebaseApp);
   useEffect(() => {
-    // console.log(player);
-    // console.log(time);
     async function updateLeaderboard() {
       const leaderboard = await doc(
         collection(db, "leaderboard"),
         "leaderboard"
       );
-      updateDoc(leaderboard, { ranks: arrayUnion({ [player]: time }) });
+      updateDoc(leaderboard, { [player]: time });
     }
     if (player && time) updateLeaderboard();
   }, [time]);
@@ -70,7 +57,13 @@ function App() {
         />
         <Route
           path="/leaderboard"
-          element={<Leaderboard players={players} correctPlayerIndex={1} />}
+          element={
+            <Leaderboard
+              firebaseApp={firebaseApp}
+              players={players}
+              correctPlayerIndex={1}
+            />
+          }
         />
       </Routes>
     </Router>

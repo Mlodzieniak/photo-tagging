@@ -44,6 +44,7 @@ function Popup({ imgPosition, offset, disable, firebaseApp }) {
       const isInside = isInsideQuadrangle(offset, charDoc.data().cords);
       console.log(isInside);
     }
+    handleClose();
   }
 
   return (

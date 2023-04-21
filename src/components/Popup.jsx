@@ -2,7 +2,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React, { useRef, useState, useEffect } from "react";
 import propTypes from "prop-types";
-import { getFirestore, collection, getDocs } from "firebase/firestore";
+import { getFirestore, collection, getDoc, doc } from "firebase/firestore";
 import "./styles/Popup.css";
 
 // window with 3 buttons that pops up in position that is received from props
@@ -18,7 +18,7 @@ function Popup({ imgPosition, offset, disable, firebaseApp }) {
   });
 
   useEffect(() => {
-    console.log(offset);
+    // console.log(offset);
     setPosition({ x: offset.x, y: offset.y });
     setIsActive(true);
   }, [offset]);
@@ -28,21 +28,26 @@ function Popup({ imgPosition, offset, disable, firebaseApp }) {
     setIsActive(false);
     disable();
   };
+  // async function addCords(charName) {
+  //   try {
+  //     const charRef = await doc(collection(db, "characters"), charName);
+  //     updateDoc(charRef, { cords: arrayUnion(offset) });
+  //     console.log("Document written with ID: ", charRef.id);
+  //   } catch (e) {
+  //     console.error("Error adding document: ", e);
+  //   }
+  // }
   // prompts db for cords of selected character
   async function acquireCords(charName) {
-    // try {
-    //   const docRef = await addDoc(collection(db, "characters"), {
-    //     [charName]: offset,
-    //   });
-    //   console.log("Document written with ID: ", docRef.id);
-    // } catch (e) {
-    //   console.error("Error adding document: ", e);
-    // }
-    const querySnapshot = await getDocs(collection(db, "characters"));
-    querySnapshot.forEach((doc) => {
-      console.log(`${doc.id} => ${doc.data()}`);
-      console.log(charName);
-    });
+    // const charDocRef = doc(collection(db,'characters'))
+    const charDoc = await getDoc(doc(collection(db, "characters")), charName);
+    // querySnapshot.forEach((doc) => {
+    //   console.log(`${doc.id} => ${doc.data()}`);
+    //   console.log(charName);
+    // });
+    if (charDoc.exists()) {
+      console.log(charDoc);
+    }
   }
 
   return (

@@ -2,7 +2,12 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, updateDoc, doc } from "firebase/firestore";
-import { HashRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  HashRouter as Router,
+  Routes,
+  Route,
+  // useNavigate,
+} from "react-router-dom";
 import Game from "./components/Game";
 import WelcomePage from "./components/WelcomePage";
 import Leaderboard from "./components/Leaderboard";
@@ -18,8 +23,9 @@ const firebaseApp = initializeApp({
 });
 
 function App() {
-  const [player, setPlayer] = useState("");
+  const [player, setPlayer] = useState(null);
   const [time, setTime] = useState(null);
+  // const navigate = useNavigate();
   const setPlayerName = (name) => {
     setPlayer(name);
   };
@@ -37,6 +43,7 @@ function App() {
     }
     if (player && time) updateLeaderboard();
   }, [time]);
+
   return (
     <Router basename="/">
       <Routes>
@@ -47,7 +54,11 @@ function App() {
         <Route
           path="/play"
           element={
-            <Game firebaseApp={firebaseApp} setPlayerTime={setPlayerTime} />
+            <Game
+              firebaseApp={firebaseApp}
+              setPlayerTime={setPlayerTime}
+              player={player}
+            />
           }
         />
         <Route

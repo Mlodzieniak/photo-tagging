@@ -1,13 +1,16 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import MainImage from "./MainImage";
 import Timer from "./Timer";
 import ImageGallery from "./ImageGallery";
 
-function Game({ firebaseApp, setPlayerTime }) {
+function Game({ firebaseApp, setPlayerTime, player }) {
   // Game logic
   const [foundChar, setFoundChar] = useState([]);
   const [timerRuns, setTimerRuns] = useState(true);
+  const navigate = useNavigate();
+
   const stopTimer = () => {
     setTimerRuns(false);
   };
@@ -25,6 +28,11 @@ function Game({ firebaseApp, setPlayerTime }) {
   useEffect(() => {
     checkWin();
   }, [foundChar]);
+  useEffect(() => {
+    if (window.location.hash === "#/play" && !player) {
+      navigate("/");
+    }
+  }, [player]);
 
   return (
     <div className="App">

@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect, useRef } from "react";
+import { useNavigate, Link } from "react-router-dom";
 import MainImage from "./MainImage";
 import Timer from "./Timer";
 import ImageGallery from "./ImageGallery";
@@ -10,15 +10,19 @@ function Game({ firebaseApp, setPlayerTime, player }) {
   const [foundChar, setFoundChar] = useState([]);
   const [timerRuns, setTimerRuns] = useState(true);
   const navigate = useNavigate();
+  const dialogRef = useRef();
 
   const stopTimer = () => {
     setTimerRuns(false);
   };
+
   const checkWin = () => {
     if (foundChar.length === 3) {
       stopTimer();
+      dialogRef.current.showModal();
     }
   };
+
   const addCharacter = (char) => {
     if (!foundChar.includes(char)) {
       setFoundChar([...foundChar, char]);
@@ -28,6 +32,7 @@ function Game({ firebaseApp, setPlayerTime, player }) {
   useEffect(() => {
     checkWin();
   }, [foundChar]);
+
   useEffect(() => {
     if (window.location.hash === "#/play" && !player) {
       navigate("/");
@@ -46,6 +51,19 @@ function Game({ firebaseApp, setPlayerTime, player }) {
         />
         <MainImage firebaseApp={firebaseApp} addCharacter={addCharacter} />
       </div>
+
+      <dialog className="endgame-dialog" ref={dialogRef}>
+        <Link to="/play">
+          <button type="button" className="play-again-btn">
+            Play again
+          </button>
+        </Link>
+        <Link to="/leaderboard">
+          <button type="button" className="leaderboard-btn">
+            To leaderboard
+          </button>
+        </Link>
+      </dialog>
     </div>
   );
 }

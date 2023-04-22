@@ -31,7 +31,11 @@ function Game({ firebaseApp, setPlayerTime }) {
       <Timer stopTimer={!timerRuns} setPlayerTime={setPlayerTime} />
 
       <div className="gallery-mainimage-wrapper">
-        <ImageGallery firebaseApp={firebaseApp} direction="column" />
+        <ImageGallery
+          firebaseApp={firebaseApp}
+          foundChar={foundChar}
+          direction="column"
+        />
         <MainImage firebaseApp={firebaseApp} addCharacter={addCharacter} />
       </div>
     </div>

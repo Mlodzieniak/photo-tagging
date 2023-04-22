@@ -17,11 +17,6 @@ const firebaseApp = initializeApp({
   measurementId: "G-R21BFDEG1T",
 });
 
-const players = [
-  { id: "CHUHCUCJ", name: "DOMINIK", time: { minutes: 1, seconds: 4 } },
-  { id: "duffd", name: "Milena", time: { minutes: 2, seconds: 40 } },
-];
-
 function App() {
   const [player, setPlayer] = useState("");
   const [time, setTime] = useState(null);
@@ -58,11 +53,7 @@ function App() {
         <Route
           path="/leaderboard"
           element={
-            <Leaderboard
-              firebaseApp={firebaseApp}
-              players={players}
-              correctPlayerIndex={1}
-            />
+            <Leaderboard firebaseApp={firebaseApp} correctPlayerIndex={1} />
           }
         />
       </Routes>

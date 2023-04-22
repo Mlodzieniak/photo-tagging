@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import CharacterImage from "./CharaterImage";
 
-function ImageGallery({ firebaseApp, direction }) {
+function ImageGallery({ firebaseApp, direction, foundChar }) {
   const [imageUrls, setImageUrls] = useState([]);
   const storage = getStorage(firebaseApp);
   const charList = [
@@ -14,24 +14,27 @@ function ImageGallery({ firebaseApp, direction }) {
 
   useEffect(() => {
     const fetchImageUrls = async () => {
-      // Clear imageUrls array
+      // Clear imageUrls object
       setImageUrls([]);
-
       // Fetch image URLs and update state
-      const promises = charList.map((char) =>
-        getDownloadURL(ref(storage, char))
-      );
+      const promises = charList.map(async (char) => {
+        const url = await getDownloadURL(ref(storage, char));
+        return { url, name: char };
+      });
       const urls = await Promise.all(promises);
       setImageUrls(urls);
     };
-
     fetchImageUrls();
   }, []);
 
   return (
     <div className="gallery" style={{ flexDirection: direction }}>
       {imageUrls.map((charUrl) => (
-        <CharacterImage url={charUrl} key={charUrl} />
+        <CharacterImage
+          url={charUrl.url}
+          key={charUrl.url}
+          isFound={foundChar ? foundChar.includes(charUrl.name) : false}
+        />
       ))}
     </div>
   );

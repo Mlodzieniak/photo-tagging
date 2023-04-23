@@ -6,9 +6,9 @@ import Timer from "./Timer";
 import ImageGallery from "./ImageGallery";
 
 function Game({ firebaseApp, setPlayerTime, player }) {
-  // Game logic
   const [foundChar, setFoundChar] = useState([]);
   const [timerRuns, setTimerRuns] = useState(true);
+  const [rounds, setRounds] = useState(0);
   const navigate = useNavigate();
   const dialogRef = useRef();
 
@@ -28,6 +28,12 @@ function Game({ firebaseApp, setPlayerTime, player }) {
       setFoundChar([...foundChar, char]);
     }
   };
+  const resetGame = () => {
+    setFoundChar([]);
+    setRounds(rounds + 1);
+    setTimerRuns(true);
+    dialogRef.current.close();
+  };
 
   useEffect(() => {
     checkWin();
@@ -41,7 +47,11 @@ function Game({ firebaseApp, setPlayerTime, player }) {
 
   return (
     <div className="App">
-      <Timer stopTimer={!timerRuns} setPlayerTime={setPlayerTime} />
+      <Timer
+        stopTimer={!timerRuns}
+        setPlayerTime={setPlayerTime}
+        rounds={rounds}
+      />
 
       <div className="gallery-mainimage-wrapper">
         <ImageGallery
@@ -53,11 +63,9 @@ function Game({ firebaseApp, setPlayerTime, player }) {
       </div>
 
       <dialog className="endgame-dialog" ref={dialogRef}>
-        <Link to="/play">
-          <button type="button" className="play-again-btn">
-            Play again
-          </button>
-        </Link>
+        <button type="button" className="play-again-btn" onClick={resetGame}>
+          Play again
+        </button>
         <Link to="/leaderboard">
           <button type="button" className="leaderboard-btn">
             To leaderboard

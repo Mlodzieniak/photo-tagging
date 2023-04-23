@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import propTypes from "prop-types";
 
-function Timer({ stopTimer, setPlayerTime }) {
+function Timer({ stopTimer, setPlayerTime, rounds }) {
   const [seconds, setSeconds] = useState(0);
   const [minutes, setMinutes] = useState(0);
   const [isActive, setIsActive] = useState(false);
@@ -35,6 +35,11 @@ function Timer({ stopTimer, setPlayerTime }) {
       setPlayerTime(totalTime);
     }
   }, [stopTimer]);
+  useEffect(() => {
+    setMinutes(0);
+    setSeconds(0);
+    setIsActive(true);
+  }, [rounds]);
 
   return (
     <div>
@@ -47,6 +52,7 @@ function Timer({ stopTimer, setPlayerTime }) {
 Timer.propTypes = {
   stopTimer: propTypes.bool.isRequired,
   setPlayerTime: propTypes.func.isRequired,
+  rounds: propTypes.number.isRequired,
 };
 
 export default Timer;

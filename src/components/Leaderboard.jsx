@@ -14,7 +14,6 @@ function Leaderboard({ correctPlayerIndex, firebaseApp }) {
       doc(collection(db, "leaderboard"), "leaderboard")
     );
     if (leaderboard.exists()) {
-      console.log(leaderboard.data());
       const unsortedPlayers = leaderboard.data();
       const sortedPlayers = Object.entries(unsortedPlayers).sort(
         (a, b) => a[1] - b[1]
@@ -32,7 +31,7 @@ function Leaderboard({ correctPlayerIndex, firebaseApp }) {
     <div className="leaderboard">
       <h2 className="title">Leaderboard</h2>
       <ol type="1">
-        {players.slice(0, 50).map(([player, time], index) => (
+        {players.slice(0, 5).map(([player, time], index) => (
           <li key={uuidv4()} className="player">
             <span className="position">{index + 1}</span>
             <span className="name">{player}</span>

@@ -43,7 +43,9 @@
     text-align: center;
 }
 
-.start-game-button {
+.start-game-button,
+.play-again-btn,
+.leaderboard-btn {
     padding: 16px 32px;
     font-size: 24px;
     font-weight: bold;
@@ -56,6 +58,11 @@
     text-align: center;
 }
 
+.play-again-btn,
+.leaderboard-btn {
+    margin: 2rem;
+}
+
 .start-game-button:hover {
     background-color: #e74c3c;
 }
@@ -64,6 +71,16 @@
 .start-game-button:hover {
     background-color: #e74c3c;
 }
+
+.play-again-btn:hover {
+    background-color: #e74c3c;
+}
+
+.leaderboard-btn:hover {
+    background-color: #e74c3c;
+}
+
+
 
 
 .main-img-wrapper {
@@ -106,4 +123,18 @@
     justify-content: center;
     align-items: center;
     overflow: hidden;
+}
+
+
+.endgame-dialog {
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    background-color: #f1f1f1;
+    /* padding: 2rem; */
+}
+
+.endgame-dialog::backdrop {
+    background: rgba(0, 0, 0, 0.5);
+
 }

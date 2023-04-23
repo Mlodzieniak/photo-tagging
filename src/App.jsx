@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, updateDoc, doc } from "firebase/firestore";
+import {
+  getFirestore,
+  collection,
+  updateDoc,
+  doc,
+  getDoc,
+} from "firebase/firestore";
 import {
   HashRouter as Router,
   Routes,
@@ -25,23 +31,35 @@ const firebaseApp = initializeApp({
 function App() {
   const [player, setPlayer] = useState(null);
   const [time, setTime] = useState(null);
-  // const navigate = useNavigate();
+  const db = getFirestore(firebaseApp);
+
   const setPlayerName = (name) => {
     setPlayer(name);
   };
   const setPlayerTime = (playerTime) => {
     setTime(playerTime);
   };
-  const db = getFirestore(firebaseApp);
-  useEffect(() => {
-    async function updateLeaderboard() {
-      const leaderboard = await doc(
-        collection(db, "leaderboard"),
-        "leaderboard"
-      );
-      updateDoc(leaderboard, { [player]: time });
+  async function updateLeaderboard() {
+    const leaderboard = await doc(collection(db, "leaderboard"), "leaderboard");
+    updateDoc(leaderboard, { [player]: time });
+  }
+  async function getLeaderboard() {
+    const leaderboard = await getDoc(
+      doc(collection(db, "leaderboard"), "leaderboard")
+    );
+    if (leaderboard.exists()) {
+      if (Object.prototype.hasOwnProperty.call(leaderboard.data(), player)) {
+        if (leaderboard.data()[player] > time) {
+          updateLeaderboard();
+        }
+      } else {
+        updateLeaderboard();
+      }
     }
-    if (player && time) updateLeaderboard();
+  }
+
+  useEffect(() => {
+    if (player && time) getLeaderboard();
   }, [time]);
 
   return (
@@ -63,9 +81,7 @@ function App() {
         />
         <Route
           path="/leaderboard"
-          element={
-            <Leaderboard firebaseApp={firebaseApp} correctPlayerIndex={1} />
-          }
+          element={<Leaderboard firebaseApp={firebaseApp} />}
         />
       </Routes>
     </Router>

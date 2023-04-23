@@ -81,7 +81,9 @@ function App() {
         />
         <Route
           path="/leaderboard"
-          element={<Leaderboard firebaseApp={firebaseApp} />}
+          element={
+            <Leaderboard firebaseApp={firebaseApp} playerName={player} />
+          }
         />
       </Routes>
     </Router>

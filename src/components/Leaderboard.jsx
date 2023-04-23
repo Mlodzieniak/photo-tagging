@@ -6,8 +6,9 @@ import { Link } from "react-router-dom";
 import { getDoc, doc, collection, getFirestore } from "firebase/firestore";
 import { v4 as uuidv4 } from "uuid";
 
-function Leaderboard({ correctPlayerIndex, firebaseApp }) {
+function Leaderboard({ firebaseApp, playerName }) {
   const [players, setPlayers] = useState([]);
+  const [currentPlayerIndex, setCurrentPlayerIndex] = useState(null);
   const db = getFirestore(firebaseApp);
   async function getLeaderboard() {
     const leaderboard = await getDoc(
@@ -21,6 +22,8 @@ function Leaderboard({ correctPlayerIndex, firebaseApp }) {
 
       // sortedPlayers is now an array of arrays, with each sub-array containing a player key-value pair
       setPlayers(sortedPlayers);
+      const index = sortedPlayers.findIndex((x) => x[0] === playerName);
+      setCurrentPlayerIndex(index);
     }
   }
   useEffect(() => {
@@ -32,14 +35,19 @@ function Leaderboard({ correctPlayerIndex, firebaseApp }) {
       <h2 className="title">Leaderboard</h2>
       <ol type="1">
         {players.slice(0, 5).map(([player, time], index) => (
-          <li key={uuidv4()} className="player">
+          <li
+            key={uuidv4()}
+            className={`player ${
+              index === currentPlayerIndex ? "correct-player" : null
+            }`}
+          >
             <span className="position">{index + 1}</span>
             <span className="name">{player}</span>
             <span className="time">{time}s</span>
           </li>
         ))}
       </ol>
-      <span>You rank: {correctPlayerIndex + 1}</span>
+      <span>You rank: {currentPlayerIndex + 1}</span>
       <Link to="/">
         <button type="button" className="go-home-btn">
           Go Home

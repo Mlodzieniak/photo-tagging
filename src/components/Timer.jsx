@@ -28,7 +28,7 @@ function Timer({ stopTimer, setPlayerTime, rounds }) {
     }
 
     return () => clearInterval(interval);
-  }, [isActive, mSeconds]);
+  }, [isActive, mSeconds, seconds]);
 
   useEffect(() => {
     setIsActive(true);

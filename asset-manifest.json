@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/photo-tagging/static/css/main.50997ae9.css",
+    "main.js": "/photo-tagging/static/js/main.25076f74.js",
+    "static/media/waldo.jpg": "/photo-tagging/static/media/waldo.9edf6cabf31f393b72c4.jpg",
+    "index.html": "/photo-tagging/index.html",
+    "main.50997ae9.css.map": "/photo-tagging/static/css/main.50997ae9.css.map",
+    "main.25076f74.js.map": "/photo-tagging/static/js/main.25076f74.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.50997ae9.css",
+    "static/js/main.25076f74.js"
+  ]
+}

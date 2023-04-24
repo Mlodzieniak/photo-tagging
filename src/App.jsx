@@ -82,7 +82,11 @@ function App() {
         <Route
           path="/leaderboard"
           element={
-            <Leaderboard firebaseApp={firebaseApp} playerName={player} />
+            <Leaderboard
+              firebaseApp={firebaseApp}
+              playerName={player}
+              playerTime={time}
+            />
           }
         />
       </Routes>

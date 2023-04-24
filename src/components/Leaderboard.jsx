@@ -6,9 +6,10 @@ import { Link } from "react-router-dom";
 import { getDoc, doc, collection, getFirestore } from "firebase/firestore";
 import { v4 as uuidv4 } from "uuid";
 
-function Leaderboard({ firebaseApp, playerName }) {
+function Leaderboard({ firebaseApp, playerName, playerTime }) {
   const [players, setPlayers] = useState([]);
   const [currentPlayerIndex, setCurrentPlayerIndex] = useState(null);
+
   const db = getFirestore(firebaseApp);
   async function getLeaderboard() {
     const leaderboard = await getDoc(
@@ -33,8 +34,8 @@ function Leaderboard({ firebaseApp, playerName }) {
   return (
     <div className="leaderboard">
       <h2 className="title">Leaderboard</h2>
-      <ol type="1">
-        {players.slice(0, 5).map(([player, time], index) => (
+      <ol type="1" className="top10">
+        {players.slice(0, 10).map(([player, time], index) => (
           <li
             key={uuidv4()}
             className={`player ${
@@ -46,8 +47,16 @@ function Leaderboard({ firebaseApp, playerName }) {
             <span className="time">{time}s</span>
           </li>
         ))}
+        {currentPlayerIndex > 10 ? (
+          <li key={uuidv4()} className="player correct-player">
+            <span className="position">{currentPlayerIndex + 1}</span>
+            <span className="name">{playerName}</span>
+            <span className="time">{playerTime}s</span>
+          </li>
+        ) : null}
       </ol>
-      <span>You rank: {currentPlayerIndex + 1}</span>
+      {/* <span>You rank: {currentPlayerIndex + 1}</span> */}
+
       <Link to="/">
         <button type="button" className="play-again-btn go-home-btn">
           Go Home

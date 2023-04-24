@@ -18,7 +18,7 @@ function WelcomePage({ setPlayerName }) {
 
   return (
     <div className="welcome-page">
-      <h1 className="title">Welcome to Photo Tagging Game!</h1>
+      <h1 className="welcome-title">Welcome to Photo Tagging Game!</h1>
       <p className="description">
         Can you find the characters in our photos? Test your skills and compete
         against your friends.
@@ -29,8 +29,9 @@ function WelcomePage({ setPlayerName }) {
       <ImageGallery direction="row" />
       <div>
         <label htmlFor="playerName">
-          Enter your name:
+          <p className="name-prompt">Enter your name:</p>
           <input
+            className="player-name-input"
             id="playerName"
             type="text"
             value={name}
@@ -43,7 +44,7 @@ function WelcomePage({ setPlayerName }) {
           className="start-game-button"
           type="button"
           disabled={!isNameValid}
-          onClick={startGame()}
+          onClick={startGame}
         >
           Start Game
         </button>

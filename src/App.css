@@ -4,7 +4,7 @@
 }
 
 :root {
-    --bg-color: #68C3D4;
+    --bg-color: #f1f1f1;
     background: var(--bg-color);
 }
 
@@ -112,6 +112,7 @@
     height: 95%;
     object-fit: contain;
     border-radius: 50%;
+    box-sizing: border-box;
 }
 
 .characterContainer {

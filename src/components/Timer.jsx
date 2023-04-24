@@ -5,6 +5,7 @@ import propTypes from "prop-types";
 function Timer({ stopTimer, setPlayerTime, rounds }) {
   const [seconds, setSeconds] = useState(0);
   const [minutes, setMinutes] = useState(0);
+  const [mSeconds, setMSeconds] = useState(0);
   const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {
@@ -12,32 +13,36 @@ function Timer({ stopTimer, setPlayerTime, rounds }) {
 
     if (isActive) {
       interval = setInterval(() => {
-        if (seconds === 59) {
+        if (mSeconds === 9) {
+          setMSeconds(0);
+          setSeconds(seconds + 1);
+        } else if (seconds === 59) {
           setSeconds(0);
           setMinutes(minutes + 1);
         } else {
-          setSeconds(seconds + 1);
+          setMSeconds(mSeconds + 1);
         }
-      }, 1000);
-    } else if (!isActive && seconds !== 0) {
+      }, 100);
+    } else if (!isActive && mSeconds !== 0) {
       clearInterval(interval);
     }
 
     return () => clearInterval(interval);
-  }, [isActive, seconds]);
+  }, [isActive, mSeconds]);
+
   useEffect(() => {
     setIsActive(true);
   }, []);
   useEffect(() => {
     if (stopTimer) {
       setIsActive(false);
-      const totalTime = minutes * 60 + seconds;
-      setPlayerTime(totalTime);
+      setPlayerTime(minutes * 60 + seconds + mSeconds / 10);
     }
   }, [stopTimer]);
   useEffect(() => {
-    setMinutes(0);
+    setMSeconds(0);
     setSeconds(0);
+    setMinutes(0);
     setIsActive(true);
   }, [rounds]);
 
@@ -45,7 +50,7 @@ function Timer({ stopTimer, setPlayerTime, rounds }) {
     <div>
       <h1>{`${minutes.toString().padStart(2, "0")}:${seconds
         .toString()
-        .padStart(2, "0")}`}</h1>
+        .padStart(2, "0")}.${mSeconds.toString()}`}</h1>
     </div>
   );
 }

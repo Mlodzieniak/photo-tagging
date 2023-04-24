@@ -49,7 +49,7 @@ function Leaderboard({ firebaseApp, playerName }) {
       </ol>
       <span>You rank: {currentPlayerIndex + 1}</span>
       <Link to="/">
-        <button type="button" className="go-home-btn">
+        <button type="button" className="play-again-btn go-home-btn">
           Go Home
         </button>
       </Link>

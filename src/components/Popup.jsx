@@ -28,16 +28,7 @@ function Popup({ imgPosition, offset, disable, firebaseApp, addCharacter }) {
     setIsActive(false);
     disable();
   };
-  // async function addCords(charName) {
-  //   try {
-  //     const charRef = await doc(collection(db, "characters"), charName);
-  //     updateDoc(charRef, { cords: arrayUnion(offset) });
-  //     console.log("Document written with ID: ", charRef.id);
-  //   } catch (e) {
-  //     console.error("Error adding document: ", e);
-  //   }
-  // }
-  // prompts db for cords of selected character
+
   async function checkCords(charName) {
     const charDoc = await getDoc(doc(collection(db, "characters"), charName));
     if (charDoc.exists()) {

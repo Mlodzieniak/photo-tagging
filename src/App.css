@@ -113,8 +113,10 @@
 
 .gallery-mainimage-wrapper {
     display: flex;
-    gap: 3rem;
+    /* gap: 3rem; */
     align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
 }
 
 .characterImage {

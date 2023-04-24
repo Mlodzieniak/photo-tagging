@@ -1,6 +1,6 @@
 .main-img-wrapper {
-    width: 900px;
-    height: 600px;
+    width: 80%;
+    height: 80vh;
     overflow: hidden;
     position: relative;
     cursor: grab;
